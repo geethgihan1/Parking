@@ -76,8 +76,8 @@
         }
         
         select {
-            padding: 8px 15px;
-            border-radius: 20px;
+            padding: 10px 15px;
+            border-radius: 25px;
             border: 2px solid rgba(255,255,255,0.3);
             background: rgba(0,0,0,0.2);
             color: white;
@@ -85,6 +85,8 @@
             cursor: pointer;
             transition: all 0.3s ease;
             backdrop-filter: blur(5px);
+            font-size: 1rem;
+            min-width: 120px;
         }
         
         select:hover {
@@ -94,6 +96,7 @@
         select option {
             background: var(--primary);
             color: white;
+            padding: 10px;
         }
         
         .content {
@@ -251,6 +254,10 @@
                 padding-top: 20px;
             }
             
+            .header h2 {
+                font-size: 1rem;
+            }
+            
             .content {
                 padding: 20px 15px;
             }
@@ -263,6 +270,19 @@
             
             select {
                 background: rgba(255,255,255,0.2);
+                width: 100%;
+                max-width: 200px;
+                font-size: 1.1rem;
+                padding: 12px 20px;
+            }
+            
+            .section-title {
+                padding: 15px;
+                font-size: 1.2rem;
+            }
+            
+            .section-body {
+                padding: 15px;
             }
         }
     </style>
@@ -272,101 +292,75 @@
         <div class="header">
             <div class="language-selector">
                 <select id="languageSelect" onchange="changeLanguage()">
-                    <option value="ja">日本語</option>
                     <option value="en">English</option>
                     <option value="ko">한국어</option>
                     <option value="zh">中文</option>
+                    <option value="th">ไทย</option>
+                    <option value="vi">Tiếng Việt</option>
                 </select>
             </div>
-            <h1 id="mainTitle">駐車場・ホテルサービスご利用案内</h1>
-            <h2 id="subTitle">Rika Parking & Hotel Services Guide</h2>
+            <h1 id="mainTitle">Parking Services Guide</h1>
+            <h2 id="subTitle">Rika Parking Center</h2>
         </div>
         
         <div class="content">
             <div class="section">
-                <h3 class="section-title"><span class="icon">🅿️</span> <span id="parkingTitle">駐車場ご利用ガイド</span></h3>
+                <h3 class="section-title"><span class="icon">🅿️</span> <span id="parkingTitle">Parking Information</span></h3>
                 <div class="section-body">
                     <div class="info-card benefit-card">
-                        <h4 class="card-title"><span class="icon">✔</span> <span id="withPassTitle">ホテルサービス券ご利用の場合</span></h4>
+                        <h4 class="card-title"><span class="icon">✔</span> <span id="withPassTitle">With Hotel Service Pass</span></h4>
                         <ul id="withPassList">
-                            <li>1,500円 → 入庫から24時間無料</li>
-                            <li>途中の入出庫はできません</li>
-                            <li>ホテルフロントで販売しています</li>
-                            <li>必ずフロントにご提出ください</li>
+                            <li>¥1,500 → Free for 24 hours from entry</li>
+                            <li>No re-entry allowed</li>
+                            <li>Available at hotel front desk</li>
+                            <li>Please submit to the front desk</li>
                         </ul>
                     </div>
                     
                     <div class="info-card warning-card">
-                        <h4 class="card-title"><span class="icon">❌</span> <span id="withoutPassTitle">サービス券なしの場合</span></h4>
+                        <h4 class="card-title"><span class="icon">❌</span> <span id="withoutPassTitle">Without Service Pass</span></h4>
                         <ul id="withoutPassList">
-                            <li>【通常料金】：30分ごとに200円（※全日適用）</li>
+                            <li>Regular rate: ¥200 every 30 minutes (all day)</li>
                         </ul>
                     </div>
                     
                     <div class="info-card notice-card">
-                        <h4 class="card-title"><span class="icon">⚠️</span> <span id="notesTitle">ご利用上の注意</span></h4>
+                        <h4 class="card-title"><span class="icon">⚠️</span> <span id="notesTitle">Important Notes</span></h4>
                         <ul id="notesList">
-                            <li>24時間を超えると、超過料金が発生します</li>
-                            <li>駐車券の紛失時は再発行できません</li>
-                            <li>満車時は入庫できません</li>
+                            <li>Overtime charges apply after 24 hours</li>
+                            <li>Lost tickets cannot be reissued</li>
+                            <li>No entry when full</li>
                         </ul>
                     </div>
                 </div>
             </div>
             
             <div class="section">
-                <h3 class="section-title"><span class="icon">🏨</span> <span id="hotelTitle">ホテルサービス情報</span></h3>
+                <h3 class="section-title"><span class="icon">🏨</span> <span id="hotelTitle">Hotel Services</span></h3>
                 <div class="section-body">
                     <div class="hotel-brand">
                         <div class="hotel-logo">TKP</div>
                         <div class="hotel-names">
-                            <div class="hotel-name-ja" id="hotelNameJa">サンライフホテル</div>
+                            <div class="hotel-name-ja" id="hotelNameJa"></div>
                             <div class="hotel-name-en" id="hotelNameEn">SUNLIFE HOTEL</div>
                         </div>
                     </div>
                     
-                    <p id="hotelInstructions">理科パーキング駐車券: 必ずフロントにご提出ください。</p>
+                    <p id="hotelInstructions">Rika Parking Ticket: Please submit to the front desk.</p>
                 </div>
             </div>
             
             <div class="footer-note">
-                <p id="contactText">お問い合わせはホテルフロントまでお願いします。</p>
+                <p id="contactText">For assistance, please contact the hotel front desk.</p>
             </div>
         </div>
     </div>
 
     <script>
         const translations = {
-            ja: {
-                mainTitle: "駐車場・ホテルサービスご利用案内",
-                subTitle: "Rika Parking & Hotel Services Guide",
-                parkingTitle: "駐車場ご利用ガイド",
-                withPassTitle: "ホテルサービス券ご利用の場合",
-                withPassList: [
-                    "1,500円 → 入庫から24時間無料",
-                    "途中の入出庫はできません",
-                    "ホテルフロントで販売しています",
-                    "必ずフロントにご提出ください"
-                ],
-                withoutPassTitle: "サービス券なしの場合",
-                withoutPassList: [
-                    "【通常料金】：30分ごとに200円（※全日適用）"
-                ],
-                notesTitle: "ご利用上の注意",
-                notesList: [
-                    "24時間を超えると、超過料金が発生します",
-                    "駐車券の紛失時は再発行できません",
-                    "満車時は入庫できません"
-                ],
-                hotelTitle: "ホテルサービス情報",
-                hotelNameJa: "サンライフホテル",
-                hotelNameEn: "SUNLIFE HOTEL",
-                hotelInstructions: "理科パーキング駐車券: 必ずフロントにご提出ください。",
-                contactText: "お問い合わせはホテルフロントまでお願いします。"
-            },
             en: {
-                mainTitle: "Parking & Hotel Services Guide",
-                subTitle: "Rika Center",
+                mainTitle: "Parking Services Guide",
+                subTitle: "Rika Parking Center",
                 parkingTitle: "Parking Information",
                 withPassTitle: "With Hotel Service Pass",
                 withPassList: [
@@ -392,8 +386,8 @@
                 contactText: "For assistance, please contact the hotel front desk."
             },
             ko: {
-                mainTitle: "주차장 & 호텔 서비스 안내",
-                subTitle: "리카 센터",
+                mainTitle: "주차 서비스 안내",
+                subTitle: "Rika Parking Center",
                 parkingTitle: "주차장 이용 안내",
                 withPassTitle: "호텔 서비스 패스 이용 시",
                 withPassList: [
@@ -419,8 +413,8 @@
                 contactText: "문의 사항은 호텔 프런트 데스크로 연락 주세요."
             },
             zh: {
-                mainTitle: "停车场与酒店服务指南",
-                subTitle: "里馨中心",
+                mainTitle: "停车服务指南",
+                subTitle: "Rika Parking Center",
                 parkingTitle: "停车场使用指南",
                 withPassTitle: "使用酒店服务券",
                 withPassList: [
@@ -442,8 +436,62 @@
                 hotelTitle: "酒店服务信息",
                 hotelNameJa: "",
                 hotelNameEn: "SUNLIFE HOTEL",
-                hotelInstructions: "里馨停车券：请提交给前台。",
+                hotelInstructions: "Rika Parking Center券：请提交给前台。",
                 contactText: "如有疑问，请联系酒店前台。"
+            },
+            th: {
+                mainTitle: "คู่มือบริการที่จอดรถ",
+                subTitle: "Rika Parking Center",
+                parkingTitle: "ข้อมูลที่จอดรถ",
+                withPassTitle: "เมื่อใช้บริการผ่านโรงแรม",
+                withPassList: [
+                    "1,500 เยน → ฟรี 24 ชั่วโมง",
+                    "ไม่อนุญาตให้เข้าออกระหว่างทาง",
+                    "จำหน่ายที่แผนกต้อนรับโรงแรม",
+                    "กรุณายื่นที่แผนกต้อนรับ"
+                ],
+                withoutPassTitle: "เมื่อไม่ใช้บริการผ่านโรงแรม",
+                withoutPassList: [
+                    "อัตราปกติ: 200 เยนทุก 30 นาที (ทั้งวัน)"
+                ],
+                notesTitle: "ข้อควรระวัง",
+                notesList: [
+                    "เกิน 24 ชั่วโมงจะคิดค่าบริการเพิ่ม",
+                    "ไม่สามารถออกบัตรใหม่หากบัตรหาย",
+                    "ไม่สามารถเข้าจอดเมื่อเต็ม"
+                ],
+                hotelTitle: "บริการโรงแรม",
+                hotelNameJa: "",
+                hotelNameEn: "SUNLIFE HOTEL",
+                hotelInstructions: "บัตรจอดรถ Rika: กรุณายื่นที่แผนกต้อนรับ",
+                contactText: "หากมีข้อสงสัยกรุณาติดต่อแผนกต้อนรับโรงแรม"
+            },
+            vi: {
+                mainTitle: "Hướng dẫn Dịch vụ Bãi đỗ xe",
+                subTitle: "Trung tâm Bãi đỗ Rika",
+                parkingTitle: "Thông tin Bãi đỗ xe",
+                withPassTitle: "Khi sử dụng Thẻ Dịch vụ Khách sạn",
+                withPassList: [
+                    "1,500 yên → Miễn phí 24 giờ từ lúc vào",
+                    "Không được ra vào giữa chừng",
+                    "Bán tại quầy lễ tân khách sạn",
+                    "Vui lòng nộp tại quầy lễ tân"
+                ],
+                withoutPassTitle: "Khi không sử dụng Thẻ Dịch vụ",
+                withoutPassList: [
+                    "Giá thông thường: 200 yên mỗi 30 phút (cả ngày)"
+                ],
+                notesTitle: "Lưu ý quan trọng",
+                notesList: [
+                    "Phí phát sinh sau 24 giờ",
+                    "Không cấp lại thẻ bị mất",
+                    "Không được vào khi bãi đã đầy"
+                ],
+                hotelTitle: "Dịch vụ Khách sạn",
+                hotelNameJa: "",
+                hotelNameEn: "SUNLIFE HOTEL",
+                hotelInstructions: "Thẻ đỗ xe Rika: Vui lòng nộp tại quầy lễ tân.",
+                contactText: "Để được hỗ trợ, vui lòng liên hệ quầy lễ tân khách sạn."
             }
         };
 
@@ -483,6 +531,11 @@
                 list.appendChild(li);
             });
         }
+
+        // Set English as default
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('languageSelect').value = 'en';
+        });
     </script>
 </body>
 </html>
