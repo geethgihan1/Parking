@@ -12,6 +12,7 @@
             --light: #f8f9fa;
             --dark: #2c3e50;
             --success: #27ae60;
+            --info: #42a5f5;
             --pattern-bg: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
         }
         
@@ -168,6 +169,16 @@
             border-left: 5px solid var(--secondary);
         }
         
+        .size-card {
+            background: rgba(66, 165, 245, 0.1);
+            border-left: 5px solid var(--info);
+        }
+        
+        .bicycle-card {
+            background: rgba(156, 39, 176, 0.1);
+            border-left: 5px solid #9c27b0;
+        }
+        
         .card-title {
             margin-top: 0;
             margin-bottom: 15px;
@@ -244,6 +255,29 @@
             font-size: 0.9rem;
         }
         
+        .size-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .size-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .size-icon {
+            font-size: 1.5rem;
+            margin-right: 10px;
+            color: var(--primary);
+        }
+        
+        .size-label {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        
         @media (max-width: 768px) {
             .header {
                 padding: 25px 15px;
@@ -284,6 +318,10 @@
             .section-body {
                 padding: 15px;
             }
+            
+            .size-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -307,6 +345,20 @@
             <div class="section">
                 <h3 class="section-title"><span class="icon">🅿️</span> <span id="parkingTitle">Parking Information</span></h3>
                 <div class="section-body">
+                    <!-- Vehicle Size Restrictions Card -->
+                    <div class="info-card size-card">
+                        <h4 class="card-title"><span class="icon">📏</span> <span id="sizeTitle">Vehicle Size Restrictions</span></h4>
+                        <div class="size-grid" id="sizeInfo">
+                            <!-- Content will be filled by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <!-- Bicycle Parking Notice -->
+                    <div class="info-card bicycle-card">
+                        <h4 class="card-title"><span class="icon">🚲</span> <span id="bicycleTitle">Bicycle Parking Notice</span></h4>
+                        <p id="bicycleText">We apologize, but bicycle parking is not available on-site. Please find street parking nearby. Thank you for your understanding!</p>
+                    </div>
+                    
                     <div class="info-card benefit-card">
                         <h4 class="card-title"><span class="icon">✔</span> <span id="withPassTitle">With Hotel Service Pass</span></h4>
                         <ul id="withPassList">
@@ -362,6 +414,15 @@
                 mainTitle: "Parking Services Guide",
                 subTitle: "Rika Parking Center",
                 parkingTitle: "Parking Information",
+                sizeTitle: "Vehicle Size Restrictions",
+                sizeInfo: [
+                    { icon: "📏", label: "Max Height:", value: "2.1m" },
+                    { icon: "📏", label: "Max Width:", value: "1.85m" },
+                    { icon: "📏", label: "Max Length:", value: "5.0m" },
+                    { icon: "⚖️", label: "Max Weight:", value: "1.8t" }
+                ],
+                bicycleTitle: "Bicycle Parking Notice",
+                bicycleText: "We apologize, but bicycle parking is not available on-site. Please find street parking nearby. Thank you for your understanding!",
                 withPassTitle: "With Hotel Service Pass",
                 withPassList: [
                     "¥1,500 → Free for 24 hours from entry",
@@ -389,33 +450,51 @@
                 mainTitle: "주차 서비스 안내",
                 subTitle: "Rika Parking Center",
                 parkingTitle: "주차장 이용 안내",
-                withPassTitle: "호텔 주차장 서비스 티켓 이용시",
-                withPassList: [
-                    "요금 : 1,500엔 → 주차 : 최대 24시간 무료 (출차 후 재입고 불가)",
-                    "서비스 티켓 판매 : 호텔 프론트 데스크",
-                    "주차 확인을 위해 주차권을 프론트 데스크에 제시 부탁드립니다."
+                sizeTitle: "차량 크기 제한",
+                sizeInfo: [
+                    { icon: "📏", label: "최대 높이:", value: "2.1m" },
+                    { icon: "📏", label: "최대 너비:", value: "1.85m" },
+                    { icon: "📏", label: "최대 길이:", value: "5.0m" },
+                    { icon: "⚖️", label: "최대 중량:", value: "1.8t" }
                 ],
-                withoutPassTitle: "주차장 서비스 티켓이 없을 경우",
+                bicycleTitle: "자전거 주차 안내",
+                bicycleText: "죄송하지만 당사 시설에는 자전거 주차장이 없습니다. 인근 도로 주차장을 이용해 주시기 바랍니다. 양해 부탁드립니다!",
+                withPassTitle: "호텔 서비스 패스 이용 시",
+                withPassList: [
+                    "1,500엔 → 입고 후 24시간 무료",
+                    "재입고 불가능",
+                    "호텔 프런트 데스크에서 판매",
+                    "프런트 데스크에 제출해 주세요"
+                ],
+                withoutPassTitle: "서비스 패스 없을 경우",
                 withoutPassList: [
-                    "정산 : 주차장 Self 정산 (일반 요금)",
-                    "일반 요금 : 30분당 200엔 (종일 적용, 한도 없음)",
+                    "일반 요금: 30분마다 200엔 (종일 적용)"
                 ],
                 notesTitle: "이용 시 주의사항",
                 notesList: [
-                    "24시간 초과시 추가 요금 발생",
-                    "분실한 주차권, 서비스 티켓은 재발행 불가",
-                    "만차시 입고 불가 (사전 예약 불가)"
+                    "24시간 초과 시 추가 요금 발생",
+                    "분실된 주차권은 재발행 불가",
+                    "만차 시 입고 불가"
                 ],
                 hotelTitle: "호텔 서비스 정보",
                 hotelNameJa: "",
                 hotelNameEn: "SUNLIFE HOTEL",
-                hotelInstructions: "리카 파킹 센터 주차권 : 프론트 데스크에 제시 부탁드립니다.",
-                contactText: "문의 사항은 호텔 프론트 데스크로 연락 주세요."
+                hotelInstructions: "리카 주차권: 프런트 데스크에 제출해 주세요.",
+                contactText: "문의 사항은 호텔 프런트 데스크로 연락 주세요."
             },
             zh: {
                 mainTitle: "停车服务指南",
                 subTitle: "Rika Parking Center",
                 parkingTitle: "停车场使用指南",
+                sizeTitle: "车辆尺寸限制",
+                sizeInfo: [
+                    { icon: "📏", label: "最大高度:", value: "2.1米" },
+                    { icon: "📏", label: "最大宽度:", value: "1.85米" },
+                    { icon: "📏", label: "最大长度:", value: "5.0米" },
+                    { icon: "⚖️", label: "最大重量:", value: "1.8吨" }
+                ],
+                bicycleTitle: "自行车停车通知",
+                bicycleText: "很抱歉，我们设施内没有自行车停车位。请在附近街道寻找停车位。感谢您的理解！",
                 withPassTitle: "使用酒店服务券",
                 withPassList: [
                     "1,500日元 → 入库后24小时免费",
@@ -443,6 +522,15 @@
                 mainTitle: "คู่มือบริการที่จอดรถ",
                 subTitle: "Rika Parking Center",
                 parkingTitle: "ข้อมูลที่จอดรถ",
+                sizeTitle: "ข้อจำกัดขนาดรถยนต์",
+                sizeInfo: [
+                    { icon: "📏", label: "ความสูงสูงสุด:", value: "2.1 เมตร" },
+                    { icon: "📏", label: "ความกว้างสูงสุด:", value: "1.85 เมตร" },
+                    { icon: "📏", label: "ความยาวสูงสุด:", value: "5.0 เมตร" },
+                    { icon: "⚖️", label: "น้ำหนักสูงสุด:", value: "1.8 ตัน" }
+                ],
+                bicycleTitle: "แจ้งเรื่องที่จอดจักรยาน",
+                bicycleText: "ขออภัยเป็นอย่างสูง ทางเราไม่มีที่จอดจักรยานในสถานที่ กรุณาจอดบริเวณใกล้เคียง ขอขอบคุณที่ให้ความเข้าใจเป็นอย่างดี!",
                 withPassTitle: "เมื่อใช้บริการผ่านโรงแรม",
                 withPassList: [
                     "1,500 เยน → ฟรี 24 ชั่วโมง",
@@ -468,8 +556,17 @@
             },
             vi: {
                 mainTitle: "Hướng dẫn Dịch vụ Bãi đỗ xe",
-                subTitle: "Rika Parking Center",
+                subTitle: "Trung tâm Bãi đỗ Rika",
                 parkingTitle: "Thông tin Bãi đỗ xe",
+                sizeTitle: "Hạn chế Kích thước Xe",
+                sizeInfo: [
+                    { icon: "📏", label: "Chiều cao tối đa:", value: "2.1m" },
+                    { icon: "📏", label: "Chiều rộng tối đa:", value: "1.85m" },
+                    { icon: "📏", label: "Chiều dài tối đa:", value: "5.0m" },
+                    { icon: "⚖️", label: "Trọng lượng tối đa:", value: "1.8 tấn" }
+                ],
+                bicycleTitle: "Thông báo Đỗ Xe Đạp",
+                bicycleText: "Chúng tôi thành thật xin lỗi nhưng không có chỗ đỗ xe đạp tại đây. Vui lòng tìm chỗ đỗ trên đường phố gần đó. Cảm ơn sự thông cảm của bạn!",
                 withPassTitle: "Khi sử dụng Thẻ Dịch vụ Khách sạn",
                 withPassList: [
                     "1,500 yên → Miễn phí 24 giờ từ lúc vào",
@@ -505,6 +602,9 @@
                 document.getElementById("mainTitle").textContent = trans.mainTitle;
                 document.getElementById("subTitle").textContent = trans.subTitle;
                 document.getElementById("parkingTitle").textContent = trans.parkingTitle;
+                document.getElementById("sizeTitle").textContent = trans.sizeTitle;
+                document.getElementById("bicycleTitle").textContent = trans.bicycleTitle;
+                document.getElementById("bicycleText").textContent = trans.bicycleText;
                 document.getElementById("withPassTitle").textContent = trans.withPassTitle;
                 document.getElementById("withoutPassTitle").textContent = trans.withoutPassTitle;
                 document.getElementById("notesTitle").textContent = trans.notesTitle;
@@ -514,6 +614,21 @@
                 document.getElementById("hotelInstructions").textContent = trans.hotelInstructions;
                 document.getElementById("contactText").textContent = trans.contactText;
                 
+                // Update size information
+                const sizeGrid = document.getElementById("sizeInfo");
+                sizeGrid.innerHTML = "";
+                trans.sizeInfo.forEach(item => {
+                    const sizeItem = document.createElement("div");
+                    sizeItem.className = "size-item";
+                    sizeItem.innerHTML = `
+                        <span class="size-icon">${item.icon}</span>
+                        <span class="size-label">${item.label}</span>
+                        <span>${item.value}</span>
+                    `;
+                    sizeGrid.appendChild(sizeItem);
+                });
+                
+                // Update lists
                 updateList("withPassList", trans.withPassList);
                 updateList("withoutPassList", trans.withoutPassList);
                 updateList("notesList", trans.notesList);
@@ -535,6 +650,7 @@
         // Set English as default
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('languageSelect').value = 'en';
+            changeLanguage();
         });
     </script>
 </body>
