@@ -3,640 +3,556 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parking & Hotel Services Guide | Rika Center</title>
+    <title>Parking & Hotel Services | Rika Center</title>
     <style>
+        /* CSS Variables */
         :root {
-            --primary: #2a5c99;
-            --secondary: #f7b500;
+            --primary-color: #2a5c99; 
+            --secondary-color: #f7b500;
             --accent: #e74c3c;
-            --light: #f8f9fa;
-            --dark: #2c3e50;
+            --bg-color: #f8fafc;
+            --text-main: #2c3e50;
+            --text-light: #64748b;
+            --white: #ffffff;
+            --border-radius: 12px;
             --success: #27ae60;
-            --info: #42a5f5;
-            --pattern-bg: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
         }
-        
+
+        /* Reset & Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.7;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0;
-            color: var(--dark);
-            background: var(--pattern-bg);
-            background-attachment: fixed;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
         }
-        
-        .container {
-            background: white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border-radius: 15px;
-            overflow: hidden;
-            margin: 30px 20px;
-        }
-        
-        .header {
-            background: var(--primary);
-            color: white;
-            padding: 30px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .header::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 0%, transparent 20%),
-                radial-gradient(circle at 80% 70%, rgba(255,255,255,0.1) 0%, transparent 20%);
-        }
-        
-        .header h1 {
-            margin: 0;
-            font-size: 2.2rem;
-            position: relative;
-        }
-        
-        .header h2 {
-            margin: 10px 0 0;
-            font-weight: 300;
-            opacity: 0.9;
-            position: relative;
-        }
-        
-        .language-selector {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 10;
-        }
-        
-        select {
-            padding: 10px 15px;
-            border-radius: 25px;
-            border: 2px solid rgba(255,255,255,0.3);
-            background: rgba(0,0,0,0.2);
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-            font-size: 1rem;
-            min-width: 120px;
-        }
-        
-        select:hover {
-            background: rgba(0,0,0,0.3);
-        }
-        
-        select option {
-            background: var(--primary);
-            color: white;
-            padding: 10px;
-        }
-        
-        .content {
-            padding: 30px;
-        }
-        
-        .section {
-            margin-bottom: 35px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            overflow: hidden;
-            border: 1px solid #eee;
-            transition: transform 0.3s ease;
-        }
-        
-        .section:hover {
-            transform: translateY(-3px);
-        }
-        
-        .section-title {
-            background: var(--primary);
-            color: white;
-            padding: 15px 25px;
-            margin: 0;
-            font-size: 1.3rem;
-            display: flex;
-            align-items: center;
-        }
-        
-        .section-title .icon {
-            margin-right: 12px;
-            font-size: 1.5rem;
-        }
-        
-        .section-body {
-            padding: 20px 25px;
-        }
-        
-        .info-card {
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .info-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-        }
-        
-        .benefit-card {
-            background: rgba(39, 174, 96, 0.1);
-            border-left: 5px solid var(--success);
-        }
-        
-        .warning-card {
-            background: rgba(231, 76, 60, 0.1);
-            border-left: 5px solid var(--accent);
-        }
-        
-        .notice-card {
-            background: rgba(247, 181, 0, 0.1);
-            border-left: 5px solid var(--secondary);
-        }
-        
-        .size-card {
-            background: rgba(66, 165, 245, 0.1);
-            border-left: 5px solid var(--info);
-        }
-        
-        .bicycle-card {
-            background: rgba(156, 39, 176, 0.1);
-            border-left: 5px solid #9c27b0;
-        }
-        
-        .card-title {
-            margin-top: 0;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-        }
-        
-        .card-title .icon {
-            margin-right: 10px;
-        }
-        
-        ul {
-            padding-left: 5px;
-            list-style: none;
-        }
-        
-        li {
-            margin-bottom: 10px;
-            padding-left: 25px;
-            position: relative;
-        }
-        
-        li::before {
-            content: "•";
-            color: var(--primary);
-            font-weight: bold;
-            font-size: 1.5rem;
-            position: absolute;
-            left: 5px;
-            top: -5px;
-        }
-        
-        .hotel-brand {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .hotel-logo {
-            width: 50px;
-            height: 50px;
-            background: var(--primary);
-            color: white;
-            border-radius: 50%;
+
+        /* =========================================
+           WELCOME / LANGUAGE SCREEN 
+           ========================================= */
+        #welcome-screen {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1e406f 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            margin-right: 15px;
-            font-size: 1.2rem;
+            z-index: 9999;
+            transition: opacity 0.4s ease-out;
         }
-        
-        .hotel-names {
-            line-height: 1.4;
-        }
-        
-        .hotel-name-ja {
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-        
-        .hotel-name-en {
-            opacity: 0.8;
-            font-size: 0.9rem;
-        }
-        
-        .footer-note {
+
+        .welcome-card {
+            background: var(--white);
+            width: 90%;
+            max-width: 400px;
+            padding: 2.5rem 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
             text-align: center;
-            padding: 20px;
-            background: var(--light);
+            transform: translateY(0);
+            transition: transform 0.4s ease-out;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .welcome-card h1 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        .lang-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 14px 20px;
+            margin-bottom: 12px;
+            background: var(--bg-color);
+            border: 2px solid #e2e8f0;
             border-radius: 8px;
-            margin-top: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn:hover, .lang-btn:active {
+            background: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(42, 92, 153, 0.2);
+        }
+
+        /* =========================================
+           MAIN APP CONTENT (Hidden Initially)
+           ========================================= */
+        #app-content {
+            display: none; 
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+        }
+
+        /* Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .language-selector select {
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: 2px solid #e2e8f0;
+            background: var(--bg-color);
+            color: var(--text-main);
+            font-weight: bold;
+            cursor: pointer;
+            outline: none;
             font-size: 0.9rem;
         }
-        
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1e406f 100%);
+            color: var(--white);
+            text-align: center;
+            padding: 3rem 1.5rem;
+        }
+
+        .hero h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .hero p { font-size: 1.1rem; opacity: 0.9; }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.75rem;
+            color: var(--primary-color);
+        }
+
+        /* Grid & Cards */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border: 1px solid #e2e8f0;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .card h4 {
+            font-size: 1.05rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .card p.subtitle {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .card.border-info { border-top: 4px solid #42a5f5; }
+        .card.border-success { border-top: 4px solid var(--success); }
+        .card.border-warning { border-top: 4px solid var(--secondary-color); }
+        .card.border-hotel { border-top: 4px solid var(--primary-color); }
+        .card.border-map { border-top: 4px solid #8e44ad; }
+
+        /* Lists */
+        .card ul { list-style-type: none; margin-bottom: 1.5rem; }
+        .card ul li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.25rem;
+            position: relative;
+            font-size: 0.95rem;
+        }
+        .card ul li::before {
+            content: "•";
+            color: var(--primary-color);
+            position: absolute; left: 0; font-size: 1.2rem; line-height: 1;
+        }
+
+        /* Size Grid */
         .size-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 15px;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+            background: #f1f5f9;
+            padding: 1rem;
+            border-radius: 8px;
         }
-        
-        .size-item {
+        .size-item { font-size: 0.9rem; }
+        .size-label { font-weight: 600; margin-right: 5px; }
+
+        /* Hotel Specifics */
+        .hotel-brand {
+            display: flex; align-items: center; margin-bottom: 1.5rem; gap: 15px;
+        }
+        .hotel-logo {
+            width: 50px; height: 50px;
+            background: var(--primary-color); color: var(--white);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: bold; font-size: 1rem;
+        }
+        .hotel-name-en { font-weight: 700; font-size: 1.2rem; color: var(--primary-color); }
+        .hotel-name-ja { color: var(--text-light); font-size: 0.9rem; }
+
+        /* Map Button */
+        .map-btn {
             display: flex;
             align-items: center;
-        }
-        
-        .size-icon {
-            font-size: 1.5rem;
-            margin-right: 10px;
-            color: var(--primary);
-        }
-        
-        .size-label {
+            justify-content: center;
+            gap: 10px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 16px 20px;
+            border-radius: 8px;
+            text-decoration: none;
             font-weight: bold;
-            margin-right: 5px;
+            font-size: 1.1rem;
+            transition: background-color 0.2s, transform 0.2s;
+            width: 100%;
         }
-        
-        @media (max-width: 768px) {
-            .header {
-                padding: 25px 15px;
-            }
-            
-            .header h1 {
-                font-size: 1.8rem;
-                padding-top: 20px;
-            }
-            
-            .header h2 {
-                font-size: 1rem;
-            }
-            
-            .content {
-                padding: 20px 15px;
-            }
-            
-            .language-selector {
-                position: static;
-                margin-bottom: 15px;
-                text-align: center;
-            }
-            
-            select {
-                background: rgba(255,255,255,0.2);
-                width: 100%;
-                max-width: 200px;
-                font-size: 1.1rem;
-                padding: 12px 20px;
-            }
-            
-            .section-title {
-                padding: 15px;
-                font-size: 1.2rem;
-            }
-            
-            .section-body {
-                padding: 15px;
-            }
-            
-            .size-grid {
-                grid-template-columns: 1fr;
-            }
+
+        .map-btn:hover {
+            background-color: #1e406f;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-main); color: #94a3b8;
+            text-align: center; padding: 1.5rem; font-size: 0.9rem;
+        }
+
+        /* Mobile specific adjustments */
+        @media (max-width: 480px) {
+            .size-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <div class="language-selector">
-                <select id="languageSelect" onchange="changeLanguage()">
-                    <option value="en">English</option>
-                    <option value="ko">한국어</option>
-                    <option value="zh">中文</option>
-                    <option value="th">ไทย</option>
-                    <option value="vi">Tiếng Việt</option>
-                </select>
-            </div>
-            <h1 id="mainTitle">Parking Services Guide</h1>
-            <h2 id="subTitle">Rika Parking Center</h2>
-        </div>
-        
-        <div class="content">
-            <div class="section">
-                <h3 class="section-title"><span class="icon">🅿️</span> <span id="parkingTitle">Parking Information</span></h3>
-                <div class="section-body">
-                    <!-- Vehicle Size Restrictions Card -->
-                    <div class="info-card size-card">
-                        <h4 class="card-title"><span class="icon">📏</span> <span id="sizeTitle">Vehicle Size Restrictions</span></h4>
-                        <div class="size-grid" id="sizeInfo">
-                            <!-- Content will be filled by JavaScript -->
-                        </div>
-                    </div>
-                    
-                    <!-- Bicycle Parking Notice -->
-                    <div class="info-card bicycle-card">
-                        <h4 class="card-title"><span class="icon">🚲</span> <span id="bicycleTitle">Bicycle Parking Notice</span></h4>
-                        <p id="bicycleText">We apologize, but bicycle parking is not available on-site. Please find street parking nearby. Thank you for your understanding!</p>
-                    </div>
-                    
-                    <div class="info-card benefit-card">
-                        <h4 class="card-title"><span class="icon">✔</span> <span id="withPassTitle">With Hotel Service Pass</span></h4>
-                        <ul id="withPassList">
-                            <li>¥1,500 → Free for 24 hours from entry</li>
-                            <li>No re-entry allowed</li>
-                            <li>Available at hotel front desk</li>
-                            <li>Please submit to the front desk</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="info-card warning-card">
-                        <h4 class="card-title"><span class="icon">❌</span> <span id="withoutPassTitle">Without Service Pass</span></h4>
-                        <ul id="withoutPassList">
-                            <li>Regular rate: ¥200 every 30 minutes (all day)</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="info-card notice-card">
-                        <h4 class="card-title"><span class="icon">⚠️</span> <span id="notesTitle">Important Notes</span></h4>
-                        <ul id="notesList">
-                            <li>Overtime charges apply after 24 hours</li>
-                            <li>Lost tickets cannot be reissued</li>
-                            <li>No entry when full</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+
+    <!-- ==========================================
+         SCREEN 1: WELCOME / LANGUAGE SELECTION
+         ========================================== -->
+    <div id="welcome-screen">
+        <div class="welcome-card" id="welcome-card">
+            <h1>Rika Center</h1>
+            <p>言語を選択してください<br>Please select your language</p>
             
-            <div class="section">
-                <h3 class="section-title"><span class="icon">🏨</span> <span id="hotelTitle">Hotel Services</span></h3>
-                <div class="section-body">
-                    <div class="hotel-brand">
-                        <div class="hotel-logo">TKP</div>
-                        <div class="hotel-names">
-                            <div class="hotel-name-ja" id="hotelNameJa"></div>
-                            <div class="hotel-name-en" id="hotelNameEn">SUNLIFE HOTEL</div>
-                        </div>
-                    </div>
-                    
-                    <p id="hotelInstructions">Rika Parking Ticket: Please submit to the front desk.</p>
-                </div>
-            </div>
-            
-            <div class="footer-note">
-                <p id="contactText">For assistance, please contact the hotel front desk.</p>
-            </div>
+            <button class="lang-btn" onclick="enterApp('ja')">日本語</button>
+            <button class="lang-btn" onclick="enterApp('en')">English</button>
+            <button class="lang-btn" onclick="enterApp('ko')">한국어</button>
+            <button class="lang-btn" onclick="enterApp('zh')">中文</button>
+            <button class="lang-btn" onclick="enterApp('th')">ไทย</button>
+            <button class="lang-btn" onclick="enterApp('vi')">Tiếng Việt</button>
         </div>
     </div>
 
+    <!-- ==========================================
+         SCREEN 2: MAIN APP (Hidden initially)
+         ========================================== -->
+    <div id="app-content">
+        <!-- Header & Navigation -->
+        <header>
+            <nav class="navbar">
+                <div class="logo">Rika Center</div>
+                <div class="language-selector">
+                    <!-- Dropdown for changing language later -->
+                    <select id="languageSelect" onchange="switchLanguageFromDropdown()">
+                        <option value="ja">日本語</option>
+                        <option value="en">English</option>
+                        <option value="ko">한국어</option>
+                        <option value="zh">中文</option>
+                        <option value="th">ไทย</option>
+                        <option value="vi">Tiếng Việt</option>
+                    </select>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Hero Banner -->
+        <section class="hero">
+            <h1 id="mainTitle">駐車場サービスのご案内</h1>
+            <p id="subTitle">リカパーキングセンター</p>
+        </section>
+
+        <!-- Main Content -->
+        <main class="container">
+            
+            <!-- Parking Information -->
+            <div class="section-header">
+                <h2 id="parkingTitle">🅿️ Parking Information</h2>
+            </div>
+
+            <div class="grid">
+                <!-- Vehicle Size & Bicycle Card -->
+                <div class="card border-info">
+                    <h3 id="sizeTitle">📏 Vehicle Size Restrictions</h3>
+                    <div class="size-grid" id="sizeInfo"></div>
+                    
+                    <h4 style="margin-top: 1.5rem;"><span class="icon">🚲</span> <span id="bicycleTitle">Bicycle Parking</span></h4>
+                    <p id="bicycleText" class="subtitle">No bicycle parking on-site.</p>
+                </div>
+
+                <!-- Pricing & Passes Card -->
+                <div class="card border-success">
+                    <h3><span class="icon">✔</span> <span id="withPassTitle">With Hotel Service Pass</span></h3>
+                    <ul id="withPassList"></ul>
+                    
+                    <h3 style="margin-top: 1.5rem; color: var(--accent);"><span class="icon">❌</span> <span id="withoutPassTitle">Without Service Pass</span></h3>
+                    <ul id="withoutPassList"></ul>
+                </div>
+
+                <!-- Notes Card -->
+                <div class="card border-warning">
+                    <h3><span class="icon">⚠️</span> <span id="notesTitle">Important Notes</span></h3>
+                    <ul id="notesList"></ul>
+                </div>
+            </div>
+
+            <!-- Hotels Section -->
+            <div class="section-header">
+                <h2 id="hotelTitle">🏨 Hotel Services</h2>
+            </div>
+
+            <div class="grid" style="grid-template-columns: 1fr; max-width: 500px; margin: 0 auto 3rem auto;">
+                <div class="card border-hotel">
+                    <div class="hotel-brand">
+                        <div class="hotel-logo">TKP</div>
+                        <div class="hotel-names">
+                            <div class="hotel-name-en" id="hotelNameEn">SUNLIFE HOTEL</div>
+                            <div class="hotel-name-ja" id="hotelNameJa"></div>
+                        </div>
+                    </div>
+                    <p id="hotelInstructions" style="font-weight: 600; margin-bottom: 0.5rem;"></p>
+                    <p id="contactText" style="color: var(--text-light); font-size: 0.9rem;"></p>
+                </div>
+            </div>
+
+            <!-- Location & Map Section -->
+            <div class="section-header">
+                <h2 id="mapTitle">📍 Location & Map</h2>
+            </div>
+
+            <div class="grid" style="grid-template-columns: 1fr; max-width: 500px; margin: 0 auto;">
+                <div class="card border-map" style="text-align: center; padding: 2rem 1.5rem;">
+                    <a href="https://maps.app.goo.gl/RxwpwwYNrVrp3Xn1A" target="_blank" class="map-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        <span id="mapBtnText">Open in Google Maps</span>
+                    </a>
+                </div>
+            </div>
+
+        </main>
+
+        <footer>
+            <p>&copy; TKP Sunlife Hotel Services</p>
+        </footer>
+    </div>
+
+    <!-- ==========================================
+         JAVASCRIPT LOGIC
+         ========================================== -->
     <script>
+        // Database of translations
         const translations = {
+            ja: {
+                mainTitle: "駐車場サービスのご案内", subTitle: "リカパーキングセンター",
+                parkingTitle: "🅿️ 駐車場情報", sizeTitle: "車両サイズ制限",
+                sizeInfo: [ { label: "最大高さ:", value: "2.1m" }, { label: "最大幅:", value: "1.85m" }, { label: "最大長さ:", value: "5.0m" }, { label: "最大重量:", value: "1.8t" } ],
+                bicycleTitle: "駐輪場について", bicycleText: "申し訳ございませんが、当施設には駐輪場がございません。近隣の駐輪場をご利用ください。ご理解のほどよろしくお願いいたします。",
+                withPassTitle: "ホテルサービス券をご利用の場合", withPassList: [ "1,500円 → 入庫から24時間無料", "途中入出庫はできません", "ホテルのフロントで販売しております", "フロントにご提出ください" ],
+                withoutPassTitle: "サービス券をご利用でない場合", withoutPassList: [ "通常料金：30分ごとに200円（終日）" ],
+                notesTitle: "注意事項", notesList: [ "24時間を超えた場合は追加料金が発生します", "紛失した駐車券の再発行はできません", "満車時は入庫できません" ],
+                hotelTitle: "🏨 ホテルサービス", hotelNameJa: "サンライフホテル", hotelNameEn: "SUNLIFE HOTEL", hotelInstructions: "リカ駐車券：フロントにご提出ください。", contactText: "ご不明な点は、ホテルのフロントまでお問い合わせください。",
+                mapTitle: "📍 アクセスマップ", mapBtnText: "Googleマップで開く"
+            },
             en: {
-                mainTitle: "Parking Services Guide",
-                subTitle: "Rika Parking Center",
-                parkingTitle: "Parking Information",
-                sizeTitle: "Vehicle Size Restrictions",
-                sizeInfo: [
-                    { icon: "📏", label: "Max Height:", value: "2.1m" },
-                    { icon: "📏", label: "Max Width:", value: "1.85m" },
-                    { icon: "📏", label: "Max Length:", value: "5.0m" },
-                    { icon: "⚖️", label: "Max Weight:", value: "1.8t" }
-                ],
-                bicycleTitle: "Bicycle Parking Notice",
-                bicycleText: "We apologize, but bicycle parking is not available on-site. Please find street parking nearby. Thank you for your understanding!",
-                withPassTitle: "With Hotel Service Pass",
-                withPassList: [
-                    "¥1,500 → Free for 24 hours from entry",
-                    "No re-entry allowed",
-                    "Available at hotel front desk",
-                    "Please submit to the front desk"
-                ],
-                withoutPassTitle: "Without Service Pass",
-                withoutPassList: [
-                    "Regular rate: ¥200 every 30 minutes (all day)"
-                ],
-                notesTitle: "Important Notes",
-                notesList: [
-                    "Overtime charges apply after 24 hours",
-                    "Lost tickets cannot be reissued",
-                    "No entry when full"
-                ],
-                hotelTitle: "Hotel Services",
-                hotelNameJa: "",
-                hotelNameEn: "SUNLIFE HOTEL",
-                hotelInstructions: "Rika Parking Ticket: Please submit to the front desk.",
-                contactText: "For assistance, please contact the hotel front desk."
+                mainTitle: "Parking Services Guide", subTitle: "Rika Parking Center",
+                parkingTitle: "🅿️ Parking Information", sizeTitle: "Vehicle Size Restrictions",
+                sizeInfo: [ { label: "Height:", value: "2.1m" }, { label: "Width:", value: "1.85m" }, { label: "Length:", value: "5.0m" }, { label: "Weight:", value: "1.8t" } ],
+                bicycleTitle: "Bicycle Parking Notice", bicycleText: "We apologize, but bicycle parking is not available on-site. Please find street parking nearby.",
+                withPassTitle: "With Hotel Service Pass", withPassList: [ "¥1,500 → Free for 24 hours from entry", "No re-entry allowed", "Available at hotel front desk", "Please submit to the front desk" ],
+                withoutPassTitle: "Without Service Pass", withoutPassList: [ "Regular rate: ¥200 every 30 minutes (all day)" ],
+                notesTitle: "Important Notes", notesList: [ "Overtime charges apply after 24 hours", "Lost tickets cannot be reissued", "No entry when full" ],
+                hotelTitle: "🏨 Hotel Services", hotelNameJa: "", hotelNameEn: "SUNLIFE HOTEL", hotelInstructions: "Rika Parking Ticket: Please submit to the front desk.", contactText: "For assistance, please contact the hotel front desk.",
+                mapTitle: "📍 Location & Map", mapBtnText: "Open in Google Maps"
             },
             ko: {
-                mainTitle: "주차 서비스 안내",
-                subTitle: "Rika Parking Center",
-                parkingTitle: "주차장 이용 안내",
-                sizeTitle: "차량 크기 제한",
-                sizeInfo: [
-                    { icon: "📏", label: "최대 높이:", value: "2.1m" },
-                    { icon: "📏", label: "최대 너비:", value: "1.85m" },
-                    { icon: "📏", label: "최대 길이:", value: "5.0m" },
-                    { icon: "⚖️", label: "최대 중량:", value: "1.8t" }
-                ],
-                bicycleTitle: "자전거 주차 안내",
-                bicycleText: "죄송하지만 당사 시설에는 자전거 주차장이 없습니다. 인근 도로 주차장을 이용해 주시기 바랍니다. 양해 부탁드립니다!",
-                withPassTitle: "호텔 서비스 패스 이용 시",
-                withPassList: [
-                    "1,500엔 → 입고 후 24시간 무료",
-                    "재입고 불가능",
-                    "호텔 프런트 데스크에서 판매",
-                    "프런트 데스크에 제출해 주세요"
-                ],
-                withoutPassTitle: "서비스 패스 없을 경우",
-                withoutPassList: [
-                    "일반 요금: 30분마다 200엔 (종일 적용)"
-                ],
-                notesTitle: "이용 시 주의사항",
-                notesList: [
-                    "24시간 초과 시 추가 요금 발생",
-                    "분실된 주차권은 재발행 불가",
-                    "만차 시 입고 불가"
-                ],
-                hotelTitle: "호텔 서비스 정보",
-                hotelNameJa: "",
-                hotelNameEn: "SUNLIFE HOTEL",
-                hotelInstructions: "리카 주차권: 프런트 데스크에 제출해 주세요.",
-                contactText: "문의 사항은 호텔 프런트 데스크로 연락 주세요."
+                mainTitle: "주차 서비스 안내", subTitle: "Rika Parking Center",
+                parkingTitle: "🅿️ 주차장 이용 안내", sizeTitle: "차량 크기 제한",
+                sizeInfo: [ { label: "최대 높이:", value: "2.1m" }, { label: "최대 너비:", value: "1.85m" }, { label: "최대 길이:", value: "5.0m" }, { label: "최대 중량:", value: "1.8t" } ],
+                bicycleTitle: "자전거 주차 안내", bicycleText: "죄송하지만 당사 시설에는 자전거 주차장이 없습니다. 인근 도로 주차장을 이용해 주시기 바랍니다.",
+                withPassTitle: "호텔 서비스 패스 이용 시", withPassList: [ "1,500엔 → 입고 후 24시간 무료", "재입고 불가능", "호텔 프런트 데스크에서 판매", "프런트 데스크에 제출해 주세요" ],
+                withoutPassTitle: "서비스 패스 없을 경우", withoutPassList: [ "일반 요금: 30분마다 200엔 (종일 적용)" ],
+                notesTitle: "이용 시 주의사항", notesList: [ "24시간 초과 시 추가 요금 발생", "분실된 주차권은 재발행 불가", "만차 시 입고 불가" ],
+                hotelTitle: "🏨 호텔 서비스 정보", hotelNameJa: "", hotelNameEn: "SUNLIFE HOTEL", hotelInstructions: "리카 주차권: 프런트 데스크에 제출해 주세요.", contactText: "문의 사항은 호텔 프런트 데스크로 연락 주세요.",
+                mapTitle: "📍 위치 및 지도", mapBtnText: "Google 지도에서 열기"
             },
             zh: {
-                mainTitle: "停车服务指南",
-                subTitle: "Rika Parking Center",
-                parkingTitle: "停车场使用指南",
-                sizeTitle: "车辆尺寸限制",
-                sizeInfo: [
-                    { icon: "📏", label: "最大高度:", value: "2.1米" },
-                    { icon: "📏", label: "最大宽度:", value: "1.85米" },
-                    { icon: "📏", label: "最大长度:", value: "5.0米" },
-                    { icon: "⚖️", label: "最大重量:", value: "1.8吨" }
-                ],
-                bicycleTitle: "自行车停车通知",
-                bicycleText: "很抱歉，我们设施内没有自行车停车位。请在附近街道寻找停车位。感谢您的理解！",
-                withPassTitle: "使用酒店服务券",
-                withPassList: [
-                    "1,500日元 → 入库后24小时免费",
-                    "中途不能出入库",
-                    "在酒店前台出售",
-                    "请务必提交给前台"
-                ],
-                withoutPassTitle: "无服务券的情况",
-                withoutPassList: [
-                    "常规费用：每30分钟200日元（全天适用）"
-                ],
-                notesTitle: "注意事项",
-                notesList: [
-                    "超过24小时将产生额外费用",
-                    "停车券丢失无法补发",
-                    "满车时无法入库"
-                ],
-                hotelTitle: "酒店服务信息",
-                hotelNameJa: "",
-                hotelNameEn: "SUNLIFE HOTEL",
-                hotelInstructions: "Rika Parking Center券：请提交给前台。",
-                contactText: "如有疑问，请联系酒店前台。"
+                mainTitle: "停车服务指南", subTitle: "Rika Parking Center",
+                parkingTitle: "🅿️ 停车场使用指南", sizeTitle: "车辆尺寸限制",
+                sizeInfo: [ { label: "最大高度:", value: "2.1米" }, { label: "最大宽度:", value: "1.85米" }, { label: "最大长度:", value: "5.0米" }, { label: "最大重量:", value: "1.8吨" } ],
+                bicycleTitle: "自行车停车通知", bicycleText: "很抱歉，我们设施内没有自行车停车位。请在附近街道寻找停车位。",
+                withPassTitle: "使用酒店服务券", withPassList: [ "1,500日元 → 入库后24小时免费", "中途不能出入库", "在酒店前台出售", "请务必提交给前台" ],
+                withoutPassTitle: "无服务券的情况", withoutPassList: [ "常规费用：每30分钟200日元（全天适用）" ],
+                notesTitle: "注意事项", notesList: [ "超过24小时将产生额外费用", "停车券丢失无法补发", "满车时无法入库" ],
+                hotelTitle: "🏨 酒店服务信息", hotelNameJa: "", hotelNameEn: "SUNLIFE HOTEL", hotelInstructions: "Rika Parking Center券：请提交给前台。", contactText: "如有疑问，请联系酒店前台。",
+                mapTitle: "📍 位置与地图", mapBtnText: "在谷歌地图中打开"
             },
             th: {
-                mainTitle: "คู่มือบริการที่จอดรถ",
-                subTitle: "Rika Parking Center",
-                parkingTitle: "ข้อมูลที่จอดรถ",
-                sizeTitle: "ข้อจำกัดขนาดรถยนต์",
-                sizeInfo: [
-                    { icon: "📏", label: "ความสูงสูงสุด:", value: "2.1 เมตร" },
-                    { icon: "📏", label: "ความกว้างสูงสุด:", value: "1.85 เมตร" },
-                    { icon: "📏", label: "ความยาวสูงสุด:", value: "5.0 เมตร" },
-                    { icon: "⚖️", label: "น้ำหนักสูงสุด:", value: "1.8 ตัน" }
-                ],
-                bicycleTitle: "แจ้งเรื่องที่จอดจักรยาน",
-                bicycleText: "ขออภัยเป็นอย่างสูง ทางเราไม่มีที่จอดจักรยานในสถานที่ กรุณาจอดบริเวณใกล้เคียง ขอขอบคุณที่ให้ความเข้าใจเป็นอย่างดี!",
-                withPassTitle: "เมื่อใช้บริการผ่านโรงแรม",
-                withPassList: [
-                    "1,500 เยน → ฟรี 24 ชั่วโมง",
-                    "ไม่อนุญาตให้เข้าออกระหว่างทาง",
-                    "จำหน่ายที่แผนกต้อนรับโรงแรม",
-                    "กรุณายื่นที่แผนกต้อนรับ"
-                ],
-                withoutPassTitle: "เมื่อไม่ใช้บริการผ่านโรงแรม",
-                withoutPassList: [
-                    "อัตราปกติ: 200 เยนทุก 30 นาที (ทั้งวัน)"
-                ],
-                notesTitle: "ข้อควรระวัง",
-                notesList: [
-                    "เกิน 24 ชั่วโมงจะคิดค่าบริการเพิ่ม",
-                    "ไม่สามารถออกบัตรใหม่หากบัตรหาย",
-                    "ไม่สามารถเข้าจอดเมื่อเต็ม"
-                ],
-                hotelTitle: "บริการโรงแรม",
-                hotelNameJa: "",
-                hotelNameEn: "SUNLIFE HOTEL",
-                hotelInstructions: "บัตรจอดรถ Rika: กรุณายื่นที่แผนกต้อนรับ",
-                contactText: "หากมีข้อสงสัยกรุณาติดต่อแผนกต้อนรับโรงแรม"
+                mainTitle: "คู่มือบริการที่จอดรถ", subTitle: "Rika Parking Center",
+                parkingTitle: "🅿️ ข้อมูลที่จอดรถ", sizeTitle: "ข้อจำกัดขนาดรถยนต์",
+                sizeInfo: [ { label: "ความสูงสูงสุด:", value: "2.1 เมตร" }, { label: "ความกว้างสูงสุด:", value: "1.85 เมตร" }, { label: "ความยาวสูงสุด:", value: "5.0 เมตร" }, { label: "น้ำหนักสูงสุด:", value: "1.8 ตัน" } ],
+                bicycleTitle: "แจ้งเรื่องที่จอดจักรยาน", bicycleText: "ขออภัยเป็นอย่างสูง ทางเราไม่มีที่จอดจักรยานในสถานที่ กรุณาจอดบริเวณใกล้เคียง",
+                withPassTitle: "เมื่อใช้บริการผ่านโรงแรม", withPassList: [ "1,500 เยน → ฟรี 24 ชั่วโมง", "ไม่อนุญาตให้เข้าออกระหว่างทาง", "จำหน่ายที่แผนกต้อนรับโรงแรม", "กรุณายื่นที่แผนกต้อนรับ" ],
+                withoutPassTitle: "เมื่อไม่ใช้บริการผ่านโรงแรม", withoutPassList: [ "อัตราปกติ: 200 เยนทุก 30 นาที (ทั้งวัน)" ],
+                notesTitle: "ข้อควรระวัง", notesList: [ "เกิน 24 ชั่วโมงจะคิดค่าบริการเพิ่ม", "ไม่สามารถออกบัตรใหม่หากบัตรหาย", "ไม่สามารถเข้าจอดเมื่อเต็ม" ],
+                hotelTitle: "🏨 บริการโรงแรม", hotelNameJa: "", hotelNameEn: "SUNLIFE HOTEL", hotelInstructions: "บัตรจอดรถ Rika: กรุณายื่นที่แผนกต้อนรับ", contactText: "หากมีข้อสงสัยกรุณาติดต่อแผนกต้อนรับโรงแรม",
+                mapTitle: "📍 ที่ตั้งและแผนที่", mapBtnText: "เปิดใน Google Maps"
             },
             vi: {
-                mainTitle: "Hướng dẫn Dịch vụ Bãi đỗ xe",
-                subTitle: "Trung tâm Bãi đỗ Rika",
-                parkingTitle: "Thông tin Bãi đỗ xe",
-                sizeTitle: "Hạn chế Kích thước Xe",
-                sizeInfo: [
-                    { icon: "📏", label: "Chiều cao tối đa:", value: "2.1m" },
-                    { icon: "📏", label: "Chiều rộng tối đa:", value: "1.85m" },
-                    { icon: "📏", label: "Chiều dài tối đa:", value: "5.0m" },
-                    { icon: "⚖️", label: "Trọng lượng tối đa:", value: "1.8 tấn" }
-                ],
-                bicycleTitle: "Thông báo Đỗ Xe Đạp",
-                bicycleText: "Chúng tôi thành thật xin lỗi nhưng không có chỗ đỗ xe đạp tại đây. Vui lòng tìm chỗ đỗ trên đường phố gần đó. Cảm ơn sự thông cảm của bạn!",
-                withPassTitle: "Khi sử dụng Thẻ Dịch vụ Khách sạn",
-                withPassList: [
-                    "1,500 yên → Miễn phí 24 giờ từ lúc vào",
-                    "Không được ra vào giữa chừng",
-                    "Bán tại quầy lễ tân khách sạn",
-                    "Vui lòng nộp tại quầy lễ tân"
-                ],
-                withoutPassTitle: "Khi không sử dụng Thẻ Dịch vụ",
-                withoutPassList: [
-                    "Giá thông thường: 200 yên mỗi 30 phút (cả ngày)"
-                ],
-                notesTitle: "Lưu ý quan trọng",
-                notesList: [
-                    "Phí phát sinh sau 24 giờ",
-                    "Không cấp lại thẻ bị mất",
-                    "Không được vào khi bãi đã đầy"
-                ],
-                hotelTitle: "Dịch vụ Khách sạn",
-                hotelNameJa: "",
-                hotelNameEn: "SUNLIFE HOTEL",
-                hotelInstructions: "Thẻ đỗ xe Rika: Vui lòng nộp tại quầy lễ tân.",
-                contactText: "Để được hỗ trợ, vui lòng liên hệ quầy lễ tân khách sạn."
+                mainTitle: "Hướng dẫn Dịch vụ Bãi đỗ xe", subTitle: "Trung tâm Bãi đỗ Rika",
+                parkingTitle: "🅿️ Thông tin Bãi đỗ xe", sizeTitle: "Hạn chế Kích thước Xe",
+                sizeInfo: [ { label: "Chiều cao tối đa:", value: "2.1m" }, { label: "Chiều rộng tối đa:", value: "1.85m" }, { label: "Chiều dài tối đa:", value: "5.0m" }, { label: "Trọng lượng tối đa:", value: "1.8 tấn" } ],
+                bicycleTitle: "Thông báo Đỗ Xe Đạp", bicycleText: "Chúng tôi thành thật xin lỗi nhưng không có chỗ đỗ xe đạp tại đây. Vui lòng tìm chỗ đỗ trên đường phố gần đó.",
+                withPassTitle: "Khi sử dụng Thẻ Dịch vụ Khách sạn", withPassList: [ "1,500 yên → Miễn phí 24 giờ từ lúc vào", "Không được ra vào giữa chừng", "Bán tại quầy lễ tân khách sạn", "Vui lòng nộp tại quầy lễ tân" ],
+                withoutPassTitle: "Khi không sử dụng Thẻ Dịch vụ", withoutPassList: [ "Giá thông thường: 200 yên mỗi 30 phút (cả ngày)" ],
+                notesTitle: "Lưu ý quan trọng", notesList: [ "Phí phát sinh sau 24 giờ", "Không cấp lại thẻ bị mất", "Không được vào khi bãi đã đầy" ],
+                hotelTitle: "🏨 Dịch vụ Khách sạn", hotelNameJa: "", hotelNameEn: "SUNLIFE HOTEL", hotelInstructions: "Thẻ đỗ xe Rika: Vui lòng nộp tại quầy lễ tân.", contactText: "Để được hỗ trợ, vui lòng liên hệ quầy lễ tân khách sạn.",
+                mapTitle: "📍 Vị trí & Bản đồ", mapBtnText: "Mở trong Google Maps"
             }
         };
 
-        function changeLanguage() {
-            const lang = document.getElementById("languageSelect").value;
-            const trans = translations[lang];
+        // Function 1: Handle initial Language Selection & Screen Transition
+        function enterApp(langCode) {
+            // Drop the welcome card down slightly before fading
+            document.getElementById('welcome-card').style.transform = 'translateY(20px)';
+            const welcomeScreen = document.getElementById('welcome-screen');
+            welcomeScreen.style.opacity = '0';
             
-            // Smooth transition effect
-            document.querySelector('.container').style.opacity = 0;
+            // Set the language in the background
+            setLanguage(langCode);
+            
+            // Keep the header select menu in sync
+            document.getElementById('languageSelect').value = langCode;
+
+            // Wait for fade out, then swap screens
             setTimeout(() => {
-                document.getElementById("mainTitle").textContent = trans.mainTitle;
-                document.getElementById("subTitle").textContent = trans.subTitle;
-                document.getElementById("parkingTitle").textContent = trans.parkingTitle;
-                document.getElementById("sizeTitle").textContent = trans.sizeTitle;
-                document.getElementById("bicycleTitle").textContent = trans.bicycleTitle;
-                document.getElementById("bicycleText").textContent = trans.bicycleText;
-                document.getElementById("withPassTitle").textContent = trans.withPassTitle;
-                document.getElementById("withoutPassTitle").textContent = trans.withoutPassTitle;
-                document.getElementById("notesTitle").textContent = trans.notesTitle;
-                document.getElementById("hotelTitle").textContent = trans.hotelTitle;
-                document.getElementById("hotelNameJa").textContent = trans.hotelNameJa;
-                document.getElementById("hotelNameEn").textContent = trans.hotelNameEn;
-                document.getElementById("hotelInstructions").textContent = trans.hotelInstructions;
-                document.getElementById("contactText").textContent = trans.contactText;
+                welcomeScreen.style.display = 'none';
                 
-                // Update size information
-                const sizeGrid = document.getElementById("sizeInfo");
-                sizeGrid.innerHTML = "";
-                trans.sizeInfo.forEach(item => {
-                    const sizeItem = document.createElement("div");
-                    sizeItem.className = "size-item";
-                    sizeItem.innerHTML = `
-                        <span class="size-icon">${item.icon}</span>
-                        <span class="size-label">${item.label}</span>
-                        <span>${item.value}</span>
-                    `;
-                    sizeGrid.appendChild(sizeItem);
-                });
+                const appContent = document.getElementById('app-content');
+                appContent.style.display = 'block';
                 
-                // Update lists
-                updateList("withPassList", trans.withPassList);
-                updateList("withoutPassList", trans.withoutPassList);
-                updateList("notesList", trans.notesList);
-                
-                document.querySelector('.container').style.opacity = 1;
-            }, 300);
+                // Small delay to trigger CSS fade-in
+                setTimeout(() => {
+                    appContent.style.opacity = '1';
+                }, 50);
+            }, 400); // Matches the 0.4s CSS transition
         }
 
+        // Function 2: Handle changing language from the top navigation dropdown
+        function switchLanguageFromDropdown() {
+            const langCode = document.getElementById('languageSelect').value;
+            setLanguage(langCode);
+        }
+
+        // Core Translation Injector
+        function setLanguage(lang) {
+            const trans = translations[lang];
+            
+            // Text Elements
+            document.getElementById("mainTitle").textContent = trans.mainTitle;
+            document.getElementById("subTitle").textContent = trans.subTitle;
+            document.getElementById("parkingTitle").textContent = trans.parkingTitle;
+            document.getElementById("sizeTitle").textContent = trans.sizeTitle;
+            document.getElementById("bicycleTitle").textContent = trans.bicycleTitle;
+            document.getElementById("bicycleText").textContent = trans.bicycleText;
+            document.getElementById("withPassTitle").textContent = trans.withPassTitle;
+            document.getElementById("withoutPassTitle").textContent = trans.withoutPassTitle;
+            document.getElementById("notesTitle").textContent = trans.notesTitle;
+            document.getElementById("hotelTitle").textContent = trans.hotelTitle;
+            document.getElementById("hotelNameJa").textContent = trans.hotelNameJa;
+            document.getElementById("hotelNameEn").textContent = trans.hotelNameEn;
+            document.getElementById("hotelInstructions").textContent = trans.hotelInstructions;
+            document.getElementById("contactText").textContent = trans.contactText;
+            document.getElementById("mapTitle").textContent = trans.mapTitle;
+            document.getElementById("mapBtnText").textContent = trans.mapBtnText;
+            
+            // Size Grid Update
+            const sizeGrid = document.getElementById("sizeInfo");
+            sizeGrid.innerHTML = "";
+            trans.sizeInfo.forEach(item => {
+                const sizeItem = document.createElement("div");
+                sizeItem.className = "size-item";
+                sizeItem.innerHTML = `<span class="size-label">${item.label}</span> <span>${item.value}</span>`;
+                sizeGrid.appendChild(sizeItem);
+            });
+            
+            // Lists Update
+            updateList("withPassList", trans.withPassList);
+            updateList("withoutPassList", trans.withoutPassList);
+            updateList("notesList", trans.notesList);
+        }
+
+        // Helper to populate <ul> tags
         function updateList(elementId, items) {
             const list = document.getElementById(elementId);
             list.innerHTML = "";
@@ -646,12 +562,6 @@
                 list.appendChild(li);
             });
         }
-
-        // Set English as default
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('languageSelect').value = 'en';
-            changeLanguage();
-        });
     </script>
 </body>
 </html>
